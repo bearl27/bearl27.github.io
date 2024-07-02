@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Baseball Field with Interactive Bases</title>
+    <title>Contact</title>
+    <link rel="stylesheet" href="style.css" />
     <style>
       body {
         margin: 0;
@@ -20,108 +21,190 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="skill.html">Skill</a></li>
           <li><a href="works.html">Works</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </header>
     <script>
+      // シーン、カメラ、レンダラーの設定
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
 
-// シーン、カメラ、レンダラーの設定
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+      // 背景色の設定
+        scene.background = new THREE.Color(0x000000);
 
-// テキストの作成（Three.jsには直接のText機能がないので、代替としてTextureを使用）
-const createText = (text, color, position) => {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    context.font = '48px Arial';
-    context.fillStyle = color;
-    context.fillText(text, 10, 50);
-    const texture = new THREE.CanvasTexture(canvas);
-    const material = new THREE.SpriteMaterial({ map: texture });
-    const sprite = new THREE.Sprite(material);
-    sprite.position.set(...position);
-    sprite.scale.set(2, 1, 1);
-    scene.add(sprite);
-};
+      // テキストの作成
+      const createText = (text, color, position) => {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        context.font = "48px Arial";
+        context.fillStyle = color;
+        context.fillText(text, 10, 50);
+        const texture = new THREE.CanvasTexture(canvas);
+        const material = new THREE.SpriteMaterial({ map: texture });
+        const sprite = new THREE.Sprite(material);
+        sprite.position.set(...position);
+        sprite.scale.set(2, 1, 1);
+        scene.add(sprite);
+      };
 
-createText('bearl', '#000000', [-2, 2, 0]);
+      createText("bearl", "#ffffff", [0.5, 3, 0]);
 
-// テクスチャローダーを作成
-const textureLoader = new THREE.TextureLoader();
+      // テクスチャローダーを作成
+      const textureLoader = new THREE.TextureLoader();
 
-// ボックスの作成
-const createBox = (position, color, text, imgUrl) => {
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
+      // ボックスを格納する配列
+      const boxes = [];
+      const hitboxes = [];
 
-    // テクスチャをロード
-    const texture = textureLoader.load(imgUrl);
+      // ボックスの作成
+      const createBox = (position, color, text, imgUrl, url) => {
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const texture = textureLoader.load(imgUrl);
+        const material = new THREE.MeshPhongMaterial({
+          color: color,
+          map: texture,
+        });
 
-    // マテリアルを作成（テクスチャと色を組み合わせる）
-    const material = new THREE.MeshPhongMaterial({
-        color: color,
-        map: texture
-    });
+        const box = new THREE.Mesh(geometry, material);
+        box.position.set(...position);
+        box.userData.url = url;
+        scene.add(box);
+        boxes.push(box);
 
-    const box = new THREE.Mesh(geometry, material);
-    box.position.set(...position);
-    scene.add(box);
+        // ヒットボックスの作成
+        const hitboxGeometry = new THREE.BoxGeometry(2, 2, 2); // より大きなサイズ
+        const hitboxMaterial = new THREE.MeshBasicMaterial({
+          visible: false, // 見えないようにする
+        });
+        const hitbox = new THREE.Mesh(hitboxGeometry, hitboxMaterial);
+        hitbox.position.set(...position);
+        hitbox.userData.url = url;
+        hitbox.userData.visibleBox = box; // 対応する可視ボックスへの参照
+        scene.add(hitbox);
+        hitboxes.push(hitbox);
 
-    // テキストの位置を調整
-    const textPosition = [
-        position[0] + 1,
-        position[1] + 1,
-        position[2] + 0.5
-    ];
+        const textPosition = [position[0] + 0.5, position[1] + 0.7, position[2]];
+        if (text === "speakerdeck") {
+          textPosition[0] = position[0];
+        }
 
-    // テキストをボックスに追加
-    createText(text, '#ffffff', textPosition);
-};
+        createText(text, "#ffffff", textPosition);
+      };
 
+      createBox(
+        [-3, 1, 0],
+        0xffffff,
+        "qiita",
+        "img/qiita.png",
+        "https://qiita.com/bearl27"
+      );
+      createBox(
+        [0, 1, 0],
+        0xffffff,
+        "github",
+        "img/git.png",
+        "https://github.com/bearl27"
+      );
+      createBox(
+        [3, 1, 0],
+        0xffffff,
+        "twitter",
+        "img/twitter.png",
+        "https://twitter.com/yourusername"
+      );
 
-createBox([-3, 0, 0], 0xffffff, 'qiita', "img/qiita.png");
-//createBox([0, 0, 0], 0x444444, 'github', "img/github.png");
-//createBox([3, 0, 0], 0xaaaaff, 'twitter', "img/twitter.png");
+      createBox(
+        [1.5, -1, 0],
+        0xffffff,
+        "mail",
+        "img/outlook.jpg",
+        "mailto:"
+        );
 
-// 光源の追加
-const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
-scene.add(ambientLight);
+      createBox(
+        [-1.5,-1, 0],
+        0xffffff,
+        "speakerdeck",
+        "img/speakerdeck.jpg",
+        "https://speakerdeck.com/bearl27"
+      );
 
-const spotLight = new THREE.SpotLight(0xffffff, 1.5);
-spotLight.position.set(10, 10, 10);
-spotLight.angle = 0.15;
-spotLight.penumbra = 1;
-scene.add(spotLight);
+      // レイキャスターとマウスの設定
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
 
-const pointLight = new THREE.PointLight(0xffffff, 1.0);
-pointLight.position.set(-10, -10, -10);
-scene.add(pointLight);
+      // クリックイベントリスナーの追加
+      window.addEventListener("click", onMouseClick, false);
+      // マウス移動イベントリスナーの追加
+      window.addEventListener("mousemove", onMouseMove, false);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
-directionalLight.position.set(0, 10, 0);
-scene.add(directionalLight);
+      function onMouseClick(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-// カメラの位置設定
-camera.position.z = 5;
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(boxes);
 
-// アニメーション関数
-function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-}
-animate();
+        if (intersects.length > 0) {
+          const clickedBox = intersects[0].object;
+          window.open(clickedBox.userData.url, "_blank");
+        }
+      }
 
-// ウィンドウリサイズ対応
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
-</script>
+      function onMouseMove(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      }
+
+      // 光源の追加
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
+      directionalLight.position.set(0, 10, 0);
+      scene.add(directionalLight);
+
+      // カメラの位置設定
+      camera.position.z = 5;
+
+      // アニメーション関数
+      function animate() {
+        requestAnimationFrame(animate);
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(boxes);
+
+        boxes.forEach((box) => {
+          box.rotation.x *= 0.95;
+          box.rotation.y *= 0.95;
+        });
+
+        if (intersects.length > 0) {
+          const box = intersects[0].object;
+          box.rotation.x += 0.2;
+          box.rotation.y += 0.2;
+        }
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // ウィンドウリサイズ対応
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
   </body>
 </html>

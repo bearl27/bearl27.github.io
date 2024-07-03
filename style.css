@@ -115,3 +115,51 @@ footer {
     text-align: center;
     padding: 20px;
 }
+
+/* works */
+.worktitle {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.timeline-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+.timeline-content {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #000;
+}
+.timeline-date {
+    flex: 0 0 100px;
+    text-align: right;
+    padding-right: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+}
+.team, .personal {
+    margin-bottom: 40px;
+}
+.team .timeline-content {
+    background-color: #ffcccc;
+}
+.personal .timeline-content {
+    background-color: #eeeeff;
+}
+
+/* .team{
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ffcccc;
+    border-radius: 5px;
+} */

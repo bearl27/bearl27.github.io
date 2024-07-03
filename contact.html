@@ -84,12 +84,12 @@
         // ヒットボックスの作成
         const hitboxGeometry = new THREE.BoxGeometry(2, 2, 2); // より大きなサイズ
         const hitboxMaterial = new THREE.MeshBasicMaterial({
-          visible: false, // 見えないようにする
+          visible: false,
         });
         const hitbox = new THREE.Mesh(hitboxGeometry, hitboxMaterial);
         hitbox.position.set(...position);
         hitbox.userData.url = url;
-        hitbox.userData.visibleBox = box; // 対応する可視ボックスへの参照
+        hitbox.userData.visibleBox = box;
         scene.add(hitbox);
         hitboxes.push(hitbox);
 
@@ -120,7 +120,7 @@
         0xffffff,
         "twitter",
         "img/twitter.png",
-        "https://twitter.com/yourusername"
+        "https://twitter.com/bearl_develop"
       );
 
       createBox(

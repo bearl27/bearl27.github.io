@@ -9,24 +9,96 @@
       body {
         margin: 0;
       }
-      canvas {
-        display: block;
+
+      .desktopDisp{
+        display: none;
+      }
+
+      .mobileDisp {
+        display: none;
+      }
+      @media screen and (max-width: 768px) {
+        .desktopDisp {
+          display: none;
+        }
+        .mobileDisp {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+        }
+        .siteURL {
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: bisque;
+          margin: 10px;
+          border-radius: 10px;
+        }
+        .siteURL img {
+          width: 100px;
+          height: 100px;
+        }
+        .siteURL p {
+          font-size: 20px;
+          text-align: center;
+        }
       }
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <header>
       <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="works.html">Works</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
+        <h1>Contact</h1>
+          <ul class = "menubar">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="works.html">Works</a></li>
+              <li><a href="contact.html">Contact</a></li>
+          </ul>
       </nav>
-    </header>
+  </header>
+    <div class="desktopDisp">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    </div>
+
+    <div class="mobileDisp">
+      <div class="siteURL">
+        <a href="https://qiita.com/bearl27">
+          <img src="img/qiita.png" alt="">
+        </a>
+      </div>
+
+      <div class="siteURL">
+        <a href= "https://github.com/bearl27"
+          ><img src="img/git.png" alt=""
+        /></a>
+      </div>
+
+      <div class="siteURL">
+        <a href="https://twitter.com/bearl_develop">
+          <img src="img/twitter.png" alt="">
+        </a>
+      </div>
+
+      <div class="siteURL">
+        <a href="mailto:">
+          <img src="img/outlook.jpg" alt="">
+        </a>
+      </div>
+
+      <div class="siteURL">
+        <a href="https://speakerdeck.com/bearl27">
+          <img src="img/speakerdeck.jpg" alt="">
+        </a>
+      </div>
+    </div>
+
+
     <script>
+      if(window.innerWidth >= 768){
+        console.log(window.innerWidth);
       // シーン、カメラ、レンダラーの設定
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
@@ -205,6 +277,7 @@
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
+    }
     </script>
   </body>
 </html>

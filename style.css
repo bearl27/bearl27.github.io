@@ -55,6 +55,16 @@ body {
 header {
     padding: 20px;
 }
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h1 {
+    margin: 0;
+    letter-spacing: 0px 5px 0px 1px;
+}
 
 nav ul {
     list-style-type: none;
@@ -64,6 +74,8 @@ nav ul {
 
 nav ul li {
     margin-left: 20px;
+    padding-left: 20px;
+    border-left: #eeeeff 1px solid;
 }
 
 nav ul li a {
@@ -92,7 +104,7 @@ main {
 
 h1 {
     font-size: 24px;
-    margin-bottom: 0;
+    letter-spacing: 2px 2px 2px 2px;
 }
 
 h2 {
@@ -156,6 +168,7 @@ footer {
 .personal .timeline-content {
     background-color: #eeeeff;
 }
+
 
 /* .team{
     margin: 20px;

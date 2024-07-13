@@ -1,4 +1,5 @@
-final int width = 800,height = 500;
+final int WIDTH = 800, HEIGHT = 500;
+int mode = 0;  // 初期モードを設定
 float[] posX;
 float[] posY;
 float[] mc = new float[2];
@@ -6,7 +7,7 @@ int num = 25;
 float[] vec;
 float[] Yvec;
 boolean flag = false;
-int nx=1, ny=4;
+int nx=6, ny=8;
 boolean[][]turned=new boolean[ny][nx];
 int score;
 float life=0;
@@ -14,24 +15,26 @@ int sradius=100;
 int mcnt;
 int p=160, q=640, a=235;
 int bx=sradius, by=sradius;
-int cx=width-sradius, cy=height-sradius;
+int cx=WIDTH-sradius, cy=HEIGHT-sradius;
 int bspeed=2, cspeed=-2;
 int mode =0;
 int hx=550, hy=400, nox=295, ex=100;
 int red=255, green=215, blue=0;
 int count=450;
 
+
 void setup() {
-  size(800, 500);
+  size(WIDTH, HEIGHT);
+  frameRate(50);
   frameRate(50);
   posX = new float[num];
   posY= new float[num];
   for (int i = 0; i < num; i++) {
-    posX[i] = random(width);
-    posY[i]=random(height);
+    posX[i] = random(WIDTH);
+    posY[i]=random(HEIGHT);
   }
-  mc[0] = width/2;
-  mc[1] = height/2;
+  mc[0] = WIDTH/2;
+  mc[1] = HEIGHT/2;
   vec = new float[num];
   Yvec =new float[num];
   for (int i = 0; i < num; i++) {
@@ -66,7 +69,7 @@ void play() {
   } else {
     background(255, 255, 255);
   }
-  flag();
+  enemy();
   maru();
   player();
   scoreDisp();
@@ -117,10 +120,10 @@ void maru() {
     ellipse(posX[i], posY[i], 20, 20);
     posX[i]=posX[i]+vec[i];
     posY[i]=posY[i]+Yvec[i];
-    if (posX[i]<0 || posX[i]>width) {
+    if (posX[i]<0 || posX[i]>WIDTH) {
       vec[i]=-vec[i];
     }
-    if (posY[i]<0 || posY[i]>height) {
+    if (posY[i]<0 || posY[i]>HEIGHT) {
       Yvec[i]=-Yvec[i];
     }
     if (crash(posX[i], posY[i], mc[0], mc[1])) {
@@ -131,12 +134,12 @@ void maru() {
   }
 }
 
-void flag() {
+void enemy() {
   float x, y;
   for (int i=0; i<nx; i++) {
     for (int j=0; j<ny; j++) {
-      x=width/nx*(i+0.5);
-      y=height/ny*(j+0.5);
+      x=WIDTH/nx*(i+0.5);
+      y=HEIGHT/ny*(j+0.5);
       fill(0, 200, 55);
       triangle(x-7, y-10, x+8, y, x-7, y+10);
       line(x-7, y, x-7, y+20);
@@ -181,7 +184,7 @@ void packHorizon() {
 void packVector() {
   fill(255, 215, 0);
   cx+=cspeed;
-  if (cx >= width || cx<0) {
+  if (cx >= WIDTH || cx<0) {
     cspeed=-cspeed;
   }
   if (cspeed>0) {
@@ -190,7 +193,7 @@ void packVector() {
     arc(cx, cy, sradius, sradius, 3.67, 8.9);
   }
   bx+=bspeed;
-  if (bx >= width|| bx<0) {
+  if (bx >= WIDTH|| bx<0) {
     bspeed=-bspeed;
   }
   if (cspeed<0) {
@@ -207,7 +210,6 @@ void packVector() {
 
 void gameTitle() {
   background(0);
-  kando();
   textSize(70);
   fill(255, 215, 0);
   text("FLAG GAME", 190, 200);
@@ -217,10 +219,11 @@ void gameTitle() {
     fill(255, 255, 255);
     text("Click to start!", 280, 300);
   }
-  fullcombo();
   Level();
   FlagR();
   FlagL();
+  fullcombo();
+  moving();
 }
 
 int tri=nox+70;
@@ -398,14 +401,14 @@ void Heart() {
 int ox=1;
 int oy;
 void gameOver() {
-  if (ox<width) {
+  if (ox<WIDTH) {
     fill(255, 0, 0);
-    rect((width-ox)/2, (height-oy)/2, ox, oy );
+    rect((WIDTH-ox)/2, (HEIGHT-oy)/2, ox, oy );
     ox=ox+10;
-    oy=ox*height/width;
+    oy=ox*HEIGHT/WIDTH;
   } else {
     fill(0);
-    rect(0, 0, width, height);
+    rect(0, 0, WIDTH, HEIGHT);
     mcnt++;
     textSize(70);
     fill(255, 0, 0);
@@ -418,7 +421,7 @@ void gameOver() {
 
 int kando=3;
 int tx=720;
-void kando() {
+void moving(){
   fill(255, 255, 255);
   triangle(tx, 390, tx+20, 350, tx+40, 390);
   triangle(tx, 450, tx+20, 490, tx+40, 450);
@@ -439,7 +442,7 @@ void con() {
   textSize(30);
   count--;
   if (mcnt%100<70 && count>-20) {
-    text("Click to contenue!    "+count/45, 240, 300);
+    text("Click to contenue!    ", 260, 300);
   }
 }
 
@@ -463,13 +466,13 @@ void item() {
   angle+=0.1;
   sX+=4.5;
   fill(random(150), random(150), random(150));
-  star(sX-3*width, sY+60*sin(angle));
-  star(7*width-sX, sY+200+60*sin(angle));
-  if (crash(sX-3*width, sY+60*sin(angle), mc[0], mc[1]) || crash(7*width-sX, sY+200+60*sin(angle), mc[0], mc[1])) {
+  star(sX-3*WIDTH, sY+60*sin(angle));
+  star(7*WIDTH-sX, sY+200+60*sin(angle));
+  if (crash(sX-3*WIDTH, sY+60*sin(angle), mc[0], mc[1]) || crash(7*WIDTH-sX, sY+200+60*sin(angle), mc[0], mc[1])) {
     life-=2*PI;
     sY=1000;
   }
-  if (sX>9*width) {
+  if (sX>9*WIDTH) {
     sX=0;
     sY=200;
   }
@@ -490,29 +493,3 @@ void fullcombo() {
     star(30+40*i, 30);
   }
 }
-
-/*
-関数でまとめたため、void drawがすっきりしています。
- ゲームタイトル画面、プレイ画面、クリア画面、ゲームオーバー画面を作りました。
- ゲームタイトル画面では、難易度や感度を選べます。
- 難易度は'e','n','h'を押すことで変えることができ、現在の難易度がわかりやすいように左右にある旗の色が変わるようにしました。
- また、EASY、NORMAL、HARDの文字の上に三角を表示しました。
- 難易度が高いほど障害物の動きが速くなります。
- 感度は右下にある数字で１〜５の５段階で数が多いほどPlayerの動きが速くなります。
- 次にプレイ画面では旗に触ると旗が緑色に、障害物に当たると画面が黄色になります。
- また障害物に当たると右上にある"life"が減っていきます。
- lifeが0になるとゲームオーバーとなってしまいます。
- ゲーム中に一定頻度で星が現れます。
- 星は"life"を回復するアイテムなので、当たるとハート一つ分回復します。
- 左上にcomboを表示しました。
- 障害物に当たることなく、連続で旗にさわれた回数です。
- 　旗が全て緑色になるとクリア画面にいきます。
- クリア画面では今まで愛用したパックマンを使いました。
- そして、'full combo'（障害物に一度も当たることなくクリアする）の時だけPERFECTと書かれます。
- fullcomboの後にゲームタイトルに戻るとfullcomboできた分だけ右上に星が追加されます
- 最後にゲームオーバー画面ではコンティニューできるようにしました。
- 　ゲームオーバー画面になってから10秒以内に一度だけコンティニューできます。
- コンティニューをすると旗はゲームオーバーした時の状態のままでライフが全回復している状態でスタートします。
- 　次にゲームをするときの指標になるよう、旗の残数を表示しました。
- ゲームオーバー画面とクリア画面からクリックするとタイトルに戻るようにしました。
- */

@@ -52,6 +52,7 @@ body {
     padding: 0;
 }
 
+
 header {
     padding: 20px;
 }
@@ -62,7 +63,7 @@ nav {
 }
 
 nav h1 {
-    margin: 0;
+    margin-left: 20px;
     letter-spacing: 0px 5px 0px 1px;
 }
 

@@ -1,10 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>My Processing Game</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
-</head>
-<body>
-  <canvas data-processing-sources="./FlagGame.pde"></canvas>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .backButton {
+        font-size: 1.5em;
+        padding: 10px;
+      }
+
+      .backButton a {
+        text-decoration: none;
+        color: white;
+        background-color: #aaa;
+        padding: 10px 15px;
+        border-radius: 5px;
+      }
+
+      .grid2 {
+        justify-self: end;
+        font-size: 1.5em;
+        padding: 10px 15px;
+        margin: 10px;
+      }
+
+      canvas {
+        display: block;
+        margin: 0 auto;
+        border: 1px solid black;
+      }
+    </style>
+    <title>My Processing Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="backButton">
+        <a href="works.html">←</a>
+      </div>
+      <button class="grid2">≡</button>
+    </header>
+    <!-- Processingスケッチ用のキャンバス -->
+    <canvas id="mySketch"></canvas>
+    <script type="text/processing" data-processing-target="mySketch" src="FlagGame.pde"></script>
+  </body>
 </html>

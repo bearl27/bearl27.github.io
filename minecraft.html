@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- three.jsを読み撼む -->
+    <div class="center">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/101/three.min.js"></script>
+    </div>
+
+    <!-- index.jsを読み撼む -->
+    <script src="minecraft.js"></script>
+
+    <style>
+      main {
+        display: flex;
+        justify-content: center;
+      }
+
+      .option {
+        margin-left: 20px;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .backButton {
+        font-size: 1.5em;
+        padding: 10px;
+      }
+
+      .backButton a {
+        text-decoration: none;
+        color: white;
+        background-color: #aaa;
+        padding: 10px 15px;
+        border-radius: 5px;
+      }
+
+      .grid2 {
+        justify-self: end;
+        font-size: 1.5em;
+        padding: 10px 15px;
+        margin: 10px
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="backButton">
+        <a href="works.html">←</a>
+      </div>
+      <button class="grid2">≡</button>
+    </header>
+    <main>
+      <canvas id="myCanvas"></canvas>
+      <div class="option">
+        <!-- <div id="output"></div> -->
+        <div class="buttons">
+          <h2>ブロック選択</h2>
+          <button id="tuti">土ブロック</button>
+          <button id="kusa">草ブロック</button>
+          <button id="stone">石ブロック</button>
+          <button id="no">持たない</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

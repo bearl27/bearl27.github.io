@@ -264,15 +264,19 @@
         raycaster.setFromCamera(mouse, camera);
         const intersects = raycaster.intersectObjects(boxes);
 
+        //　通常時
         boxes.forEach((box) => {
           box.rotation.x *= 0.95;
           box.rotation.y *= 0.95;
+          box.scale.set(1, 1, 1);
         });
 
+        // カーソル時
         if (intersects.length > 0) {
           const box = intersects[0].object;
           box.rotation.x += 0.2;
           box.rotation.y += 0.2;
+          box.scale.set(2, 2, 2);
         }
 
         renderer.render(scene, camera);

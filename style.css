@@ -60,14 +60,6 @@ header #now{
     height: auto;
 }
 
-.profile #h2name{
-    text-align: center;
-    font-size: 20px;
-    color: #333;
-    padding-top:20px;
-    padding-bottom:10px;
-}
-
 .subtitle{
     text-align: center;
     font-size: 20px;

@@ -1,35 +1,57 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kai</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header>
-        <nav>
-            <h1>Home</h1>
-            <ul class = "menubar">
-                <li><a href="index.html">Home</a></li>
-                <!-- <li><a href="about.html">About</a></li> -->
-                <li><a href="works.html">Works</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+      <ul>
+        <li><a id="now" href="index.html">HOME</a></li>
+        <li><a href="profile.html">PROFILE</a></li>
+        <li><a href="works.html">WORKS</a></li>
+        <li><a href="blog.html">BLOG</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
     </header>
-    <main>
-        <section class="profile">
-            <h1>Student Developer</h1>
-            <h2>Kai</h2>
-            <img src="/img/avatar.png" class="avatar">
-            <p class = intro>
-                大阪生まれ大阪育ちの大学生です．VR/ARやゲーム開発，モバイルアプリ制作に興味があります．
-            </p>
-        </section>
-    </main>
+    <section class="home">
+      <img id="img" src="/img/tate_short.png" />
+      <h2 id="name">KAI NAGAHARI</h2>
+    </section>
+
+    <div class="imgWrapper">
+      <img id="yokoimg" src="/img/yoko.png" />
+    </div>
+
+    <section class="news">
+      <h2 class="subtitle">POSTS</h2>
+      <div id="twitter-posts">
+        <a
+          class="twitter-timeline"
+          href="https://twitter.com/bearl_develop?ref_src=twsrc%5Etfw"
+          >Tweets by bearl_develop</a
+        >
+        <script
+          async
+          src="https://platform.twitter.com/widgets.js"
+          charset="utf-8"
+        ></script>
+      </div>
+    </section>
+
+    <section class="contact">
+      <p>
+        X ▶︎
+        <a href="https://x.com/breal_develop">https://x.com/bearl_develop</a>
+      </p>
+      <p></p>
+      <p></p>
+    </section>
+
     <footer>
-        <p>&copy; 2024 Kai</p>
+      <p>&copy; Kai</p>
     </footer>
-</body>
+  </body>
 </html>

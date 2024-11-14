@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="profile.html">PROFILE</a></li>
+          <li><a href="works.html">WORKS</a></li>
+          <li><a id="now" href="blog.html">BLOG</a></li>
+          <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <h1 class="title">Blog</h1>
+        <div id="qiita-articles"></div>
+    </main>
+
+    <script>
+        fetch('https://qiita.com/api/v2/items?query=user%3Abearl27')
+            .then(response => response.json())
+            .then(data => {
+                const articlesContainer = document.getElementById('qiita-articles');
+                data.forEach(article => {
+                    const articleElement = document.createElement('div');
+                    articleElement.className = 'article-block';
+                    articleElement.innerHTML = `
+                        <div class="article-date">${new Date(article.created_at).toLocaleDateString()}</div>
+                        <div class="border-line"></div>
+                        <div class="article-title">${article.title}</div>
+                        <div class="article-good">♡ : ${article.likes_count}</div>
+                    `;
+                    articleElement.addEventListener('click', () => {
+                        window.open(article.url, '_blank');
+                    });
+                    articlesContainer.appendChild(articleElement);
+                });
+            });
+    </script>
+</body>
+</html>
